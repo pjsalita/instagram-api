@@ -69,15 +69,16 @@ trait FriendshipsFeaturesTrait
      * @param string|null $maxId
      * @return PromiseInterface<FollowersResponse|InstagramException>
      */
-    public function followers(string $userId, ?string $maxId = null): PromiseInterface
+    public function followers(string $userId, ?string $maxId = null, ?int $count = 25): PromiseInterface
     {
-        return $this->authenticated(function () use ($userId, $maxId): PromiseInterface {
+        return $this->authenticated(function () use ($userId, $maxId, $count): PromiseInterface {
             // @phan-suppress-next-line PhanPluginPrintfVariableFormatString
             // phpcs:ignore
             $request = $this->buildRequest(sprintf('friendships/%s/followers/', $userId), new FollowersResponse($userId), 'GET')
                 ->addRankedToken($this->session)
                 ->addQueryParam('rank_mutual', 0)
-                ->addQueryParamIfNotNull('max_id', $maxId);
+                ->addQueryParamIfNotNull('max_id', $maxId)
+                ->addQueryParamIfNotNull('count', $count);
 
             return $this->call($request);
         });

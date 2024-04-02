@@ -74,9 +74,9 @@ trait MakeFriendshipsRequestsAccessible
      * @return FollowersResponse
      * @throws InstagramException in case of an error
      */
-    public function followers(string $userId, ?string $maxId = null): FollowersResponse
+    public function followers(string $userId, ?string $maxId = null, ?int $count = 25): FollowersResponse
     {
-        return PromiseUtils::wait($this->getClient()->followers($userId, $maxId));
+        return PromiseUtils::wait($this->getClient()->followers($userId, $maxId, $count));
     }
 
     /**
