@@ -27,6 +27,9 @@ abstract class ResponseEnvelope implements ResponseInterface
     /** @var bool */
     protected $invalidCredentials;
 
+    /** @var array */
+    protected $challenge;
+
     /**
      * @return string|null
      */
@@ -67,5 +70,13 @@ abstract class ResponseEnvelope implements ResponseInterface
     public function isSuccess(): bool
     {
         return $this->status === static::STATUS_SUCCESS;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getChallenge(): ?array
+    {
+        return $this->challenge;
     }
 }
