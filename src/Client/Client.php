@@ -190,6 +190,10 @@ class Client
             return Create::rejectionFor($throwable);
         }
 
+        if (!$throwable->getResponse()) {
+            return Create::rejectionFor($throwable);
+        }
+
         // @phan-suppress-next-line PhanUndeclaredMethod
         return $this->decode($throwable->getResponse(), $serializer);
     }
